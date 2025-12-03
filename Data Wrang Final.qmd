@@ -1,0 +1,116 @@
+---
+title: "Data Wrangling Final - Sleep Analysis on Mammals"
+author: "Hannah McNelly"
+format: html
+---
+
+## Loading in packages
+```{python}
+import pandas as pd
+import statsmodels.api as sm
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+```
+
+## Loading in data
+```{python}
+data = pd.read_csv("~/Downloads/dataset_2191_sleep.csv.xls")
+```
+
+## Looking into the data
+```{python}
+data.head()
+data.tail()
+```
+
+```{python}
+data.dtypes
+```
+
+```{python}
+data.describe(include= 'all')
+```
+
+## Cleaning the data
+```{python}
+data.replace(['?'], np.nan, inplace=True)
+```
+
+```{python}
+data.isnull().sum()
+```
+
+```{python}
+cols_fixed = ['max_life_span', 'gestation_time', 'total_sleep']
+
+for col in cols_fixed:
+    data[col] = pd.to_numeric(data[col], errors='coerce')
+```
+
+
+```{python}
+data = data.dropna(subset=cols_fixed)
+```
+
+```{python}
+data.dtypes
+```
+
+I wrote this code to prepare the data to best answer the 3 questions I had below. To start I replaced any values that were inconsistent to display NaN. I also converted non-numeric values to numeric to be able to work with the data to create visualizations. 
+
+## Question 1
+# How spread out is the total hours of sleep for mammals?
+
+```{python}
+plt.figure(figsize=(8,5))
+plt.hist(data["total_sleep"].dropna(), bins=10, color = 'green')
+
+plt.title("Histogram of Total Sleep")
+plt.xlabel("Total Sleep (hours)")
+plt.ylabel("Frequency")
+plt.show()
+```
+
+This code was used to see the distribution of total number of hours of sleep ranging from 2.5 to 20. With most total hours of sleep falling into the 7-13 hour range. If a mammal is to not be apart of the 7-13 hour range they are more likely to sleep less hours than more. 
+
+## Question 2
+# What features correlate with one another the least?
+
+```{python}
+corr = data.corr()
+plt.figure(figsize=(12, 10))
+sns.heatmap(corr, annot=True, fmt=".2f", cmap="copper", square=True)
+plt.title("Correlation Matrix")
+plt.show()
+```
+
+This code was produced to see how all of the features work alongside one another. The bright red shows the features positively interacting with one another which is why it is a positive 1.00. The bright blue shows the negative interaction between the features. The features that correlate with one another the least is sleep_exposure_index and total_sleep. Meaning that it matters the least about how exposed the animal is to the outside elements and the total hours of sleep they get. 
+
+## Question 3
+# How does total sleep relate to life span?
+```{python}
+plt.figure(figsize=(8, 6))
+plt.scatter(data['total_sleep'], data['max_life_span'], color = 'green')
+
+x = data['total_sleep']
+y = data['max_life_span']
+
+m, b = np.polyfit(x, y, 1)
+
+x_sorted = np.sort(x)
+y_pred = m * x_sorted + b
+
+plt.plot(x_sorted, y_pred, color='black', linewidth=2)
+
+plt.title("Total Sleep vs. Maximum Life Span")
+plt.xlabel("Total Sleep (hours)")
+plt.ylabel("Max Life Span (years)")
+
+plt.grid(True, alpha=0.3)
+plt.show()
+```
+
+This code was written to compare total sleep vs maximum life span to take a deeper look into how they correlate. From this scatter plot we can see that more sleep does not mean that the mammals will have a longer life span. 
+
+
