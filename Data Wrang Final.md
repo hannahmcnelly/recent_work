@@ -29,88 +29,21 @@ data.tail()
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
     }
-
-    .dataframe tbody tr th {
+&#10;    .dataframe tbody tr th {
         vertical-align: top;
     }
-
-    .dataframe thead th {
+&#10;    .dataframe thead th {
         text-align: right;
     }
 </style>
 
-<table class="dataframe" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">body_weight</th>
-<th data-quarto-table-cell-role="th">brain_weight</th>
-<th data-quarto-table-cell-role="th">max_life_span</th>
-<th data-quarto-table-cell-role="th">gestation_time</th>
-<th data-quarto-table-cell-role="th">predation_index</th>
-<th data-quarto-table-cell-role="th">sleep_exposure_index</th>
-<th data-quarto-table-cell-role="th">danger_index</th>
-<th data-quarto-table-cell-role="th">total_sleep</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td data-quarto-table-cell-role="th">57</td>
-<td>2.000</td>
-<td>12.3</td>
-<td>7.5</td>
-<td>200</td>
-<td>3</td>
-<td>1</td>
-<td>3</td>
-<td>5.4</td>
-</tr>
-<tr>
-<td data-quarto-table-cell-role="th">58</td>
-<td>0.104</td>
-<td>2.5</td>
-<td>2.3</td>
-<td>46</td>
-<td>3</td>
-<td>2</td>
-<td>2</td>
-<td>15.8</td>
-</tr>
-<tr>
-<td data-quarto-table-cell-role="th">59</td>
-<td>4.190</td>
-<td>58.0</td>
-<td>24</td>
-<td>210</td>
-<td>4</td>
-<td>3</td>
-<td>4</td>
-<td>10.3</td>
-</tr>
-<tr>
-<td data-quarto-table-cell-role="th">60</td>
-<td>3.500</td>
-<td>3.9</td>
-<td>3</td>
-<td>14</td>
-<td>2</td>
-<td>1</td>
-<td>1</td>
-<td>19.4</td>
-</tr>
-<tr>
-<td data-quarto-table-cell-role="th">61</td>
-<td>4.050</td>
-<td>17.0</td>
-<td>13</td>
-<td>38</td>
-<td>3</td>
-<td>1</td>
-<td>1</td>
-<td>?</td>
-</tr>
-</tbody>
-</table>
+|  | body_weight | brain_weight | max_life_span | gestation_time | predation_index | sleep_exposure_index | danger_index | total_sleep |
+|----|----|----|----|----|----|----|----|----|
+| 57 | 2.000 | 12.3 | 7.5 | 200 | 3 | 1 | 3 | 5.4 |
+| 58 | 0.104 | 2.5 | 2.3 | 46 | 3 | 2 | 2 | 15.8 |
+| 59 | 4.190 | 58.0 | 24 | 210 | 4 | 3 | 4 | 10.3 |
+| 60 | 3.500 | 3.9 | 3 | 14 | 2 | 1 | 1 | 19.4 |
+| 61 | 4.050 | 17.0 | 13 | 38 | 3 | 1 | 1 | ? |
 
 </div>
 
@@ -137,154 +70,27 @@ data.describe(include= 'all')
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
     }
-
-    .dataframe tbody tr th {
+&#10;    .dataframe tbody tr th {
         vertical-align: top;
     }
-
-    .dataframe thead th {
+&#10;    .dataframe thead th {
         text-align: right;
     }
 </style>
 
-<table class="dataframe" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">body_weight</th>
-<th data-quarto-table-cell-role="th">brain_weight</th>
-<th data-quarto-table-cell-role="th">max_life_span</th>
-<th data-quarto-table-cell-role="th">gestation_time</th>
-<th data-quarto-table-cell-role="th">predation_index</th>
-<th data-quarto-table-cell-role="th">sleep_exposure_index</th>
-<th data-quarto-table-cell-role="th">danger_index</th>
-<th data-quarto-table-cell-role="th">total_sleep</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td data-quarto-table-cell-role="th">count</td>
-<td>62.000000</td>
-<td>62.000000</td>
-<td>62</td>
-<td>62</td>
-<td>62.000000</td>
-<td>62.000000</td>
-<td>62.000000</td>
-<td>62</td>
-</tr>
-<tr>
-<td data-quarto-table-cell-role="th">unique</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>48</td>
-<td>50</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>45</td>
-</tr>
-<tr>
-<td data-quarto-table-cell-role="th">top</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>?</td>
-<td>?</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>?</td>
-</tr>
-<tr>
-<td data-quarto-table-cell-role="th">freq</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>4</td>
-<td>4</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>4</td>
-</tr>
-<tr>
-<td data-quarto-table-cell-role="th">mean</td>
-<td>198.789984</td>
-<td>283.134194</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>2.870968</td>
-<td>2.419355</td>
-<td>2.612903</td>
-<td>NaN</td>
-</tr>
-<tr>
-<td data-quarto-table-cell-role="th">std</td>
-<td>899.158011</td>
-<td>930.278942</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>1.476414</td>
-<td>1.604792</td>
-<td>1.441252</td>
-<td>NaN</td>
-</tr>
-<tr>
-<td data-quarto-table-cell-role="th">min</td>
-<td>0.005000</td>
-<td>0.140000</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>1.000000</td>
-<td>1.000000</td>
-<td>1.000000</td>
-<td>NaN</td>
-</tr>
-<tr>
-<td data-quarto-table-cell-role="th">25%</td>
-<td>0.600000</td>
-<td>4.250000</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>2.000000</td>
-<td>1.000000</td>
-<td>1.000000</td>
-<td>NaN</td>
-</tr>
-<tr>
-<td data-quarto-table-cell-role="th">50%</td>
-<td>3.342500</td>
-<td>17.250000</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>3.000000</td>
-<td>2.000000</td>
-<td>2.000000</td>
-<td>NaN</td>
-</tr>
-<tr>
-<td data-quarto-table-cell-role="th">75%</td>
-<td>48.202500</td>
-<td>166.000000</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>4.000000</td>
-<td>4.000000</td>
-<td>4.000000</td>
-<td>NaN</td>
-</tr>
-<tr>
-<td data-quarto-table-cell-role="th">max</td>
-<td>6654.000000</td>
-<td>5712.000000</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>5.000000</td>
-<td>5.000000</td>
-<td>5.000000</td>
-<td>NaN</td>
-</tr>
-</tbody>
-</table>
+|  | body_weight | brain_weight | max_life_span | gestation_time | predation_index | sleep_exposure_index | danger_index | total_sleep |
+|----|----|----|----|----|----|----|----|----|
+| count | 62.000000 | 62.000000 | 62 | 62 | 62.000000 | 62.000000 | 62.000000 | 62 |
+| unique | NaN | NaN | 48 | 50 | NaN | NaN | NaN | 45 |
+| top | NaN | NaN | ? | ? | NaN | NaN | NaN | ? |
+| freq | NaN | NaN | 4 | 4 | NaN | NaN | NaN | 4 |
+| mean | 198.789984 | 283.134194 | NaN | NaN | 2.870968 | 2.419355 | 2.612903 | NaN |
+| std | 899.158011 | 930.278942 | NaN | NaN | 1.476414 | 1.604792 | 1.441252 | NaN |
+| min | 0.005000 | 0.140000 | NaN | NaN | 1.000000 | 1.000000 | 1.000000 | NaN |
+| 25% | 0.600000 | 4.250000 | NaN | NaN | 2.000000 | 1.000000 | 1.000000 | NaN |
+| 50% | 3.342500 | 17.250000 | NaN | NaN | 3.000000 | 2.000000 | 2.000000 | NaN |
+| 75% | 48.202500 | 166.000000 | NaN | NaN | 4.000000 | 4.000000 | 4.000000 | NaN |
+| max | 6654.000000 | 5712.000000 | NaN | NaN | 5.000000 | 5.000000 | 5.000000 | NaN |
 
 </div>
 
@@ -352,7 +158,7 @@ plt.ylabel("Frequency")
 plt.show()
 ```
 
-![](Data%20Wrang%20Final_files/figure-markdown_strict/cell-12-output-1.png)
+![](Data%20Wrang%20Final_files/figure-commonmark/cell-12-output-1.png)
 
 This code was used to see the distribution of total number of hours of
 sleep ranging from 2.5 to 20. With most total hours of sleep falling
@@ -371,7 +177,7 @@ plt.title("Correlation Matrix")
 plt.show()
 ```
 
-![](Data%20Wrang%20Final_files/figure-markdown_strict/cell-13-output-1.png)
+![](Data%20Wrang%20Final_files/figure-commonmark/cell-13-output-1.png)
 
 This code was produced to see how all of the features work alongside one
 another. The bright red shows the features positively interacting with
@@ -407,7 +213,7 @@ plt.grid(True, alpha=0.3)
 plt.show()
 ```
 
-![](Data%20Wrang%20Final_files/figure-markdown_strict/cell-14-output-1.png)
+![](Data%20Wrang%20Final_files/figure-commonmark/cell-14-output-1.png)
 
 This code was written to compare total sleep vs maximum life span to
 take a deeper look into how they correlate. From this scatter plot we
