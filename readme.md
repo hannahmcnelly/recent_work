@@ -144,7 +144,7 @@ had below. To start I replaced any values that were inconsistent to
 display NaN. I also converted non-numeric values to numeric to be able
 to work with the data to create visualizations.
 
-## Question 1
+## Question 1:
 
 # How spread out is the total hours of sleep for mammals?
 
@@ -165,7 +165,7 @@ sleep ranging from 2.5 to 20. With most total hours of sleep falling
 into the 7-13 hour range. If a mammal is to not be apart of the 7-13
 hour range they are more likely to sleep less hours than more.
 
-## Question 2
+## Question 2:
 
 # What features correlate with one another the least?
 
@@ -187,7 +187,7 @@ correlate with one another the least is sleep_exposure_index and
 total_sleep. Meaning that it matters the least about how exposed the
 animal is to the outside elements and the total hours of sleep they get.
 
-## Question 3
+## Question 3:
 
 # How does total sleep relate to life span?
 
