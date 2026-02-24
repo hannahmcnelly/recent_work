@@ -1,116 +1,110 @@
 ---
-title: "Data Wrangling Final - Sleep Analysis on Mammals"
+title: "Unstructured Final Project"
 author: "Hannah McNelly"
 format: html
 ---
 
-## Loading in packages
+# NASA Website Scraping Using an API Key: Uncovering the fascinating secrets of CMEs in space 
+
+## What are CME instances and how do the two instances in 2016 compare to one another?
+
+A Coronal Mass Ejection (CME) is a large burst of plasma and magnetic field that erupts from the Sun's surface and travels through space. CME analysis involves studying these eruptions to predict when and how strongly they might impact Earth, as powerful ones can disrupt satellites, power grids, and communications.
+
+Solar physicists study CMEs in order to protect our planet from combining with our satellites, power grids and other communication systems. Some interesting facts about them is that they can take anywhere from 15 hours to days to travel to earth. They also can travel to earth with speeds up to a shocking 5 million mph. 
+
+They may travel at insane speeds but when they arrive to earth they are displayed around the sun as a pretty halo. The data I scraped from NASA is specifically 2 CMEs that took place in September 2016, and were both fast and wide enough to be significant enough to record. 
+
+### Scraping using an API key, looking into data and dropping columns
+
 ```{python}
 import pandas as pd
-import statsmodels.api as sm
+import time
+import requests
+
+Coronal = "https://api.nasa.gov/DONKI/CMEAnalysis?startDate=2016-09-01&endDate=2016-09-30&mostAccurateOnly=true&speed=500&halfAngle=30&catalog=ALL&api_key=jj2d0Yyijab32scO9bjJFZS2scygrJPiuqJSoC4T"
+
+Coronal_r = requests.get(Coronal)
+Coronal_data = Coronal_r.json()
+
+Coronal_df = pd.DataFrame(Coronal_data)
+
+time.sleep(3)
+
+Coronal_df
+```
+
+```{python}
+Coronal_df.dtypes
+```
+
+```{python}
+Coronal_df.isnull().sum()
+```
+
+Since there are 22 columns for both of these CMEs I decided to let go of the ones that had null or None just to make future work cleaner. 
+
+```{python}
+cols_to_drop = ['isMostAccurate', 'dataLevel', 'imageType', 'tilt', 'minorHalfWidth', 'speedMeasuredAtHeight', 'featureCode', 'measurementTechnique', 'link', 'associatedCMELink', 'note', 'versionId']
+
+Coronal_df = Coronal_df.drop(columns=cols_to_drop)
+Coronal_df
+```
+
+### Is there a clear difference in speed between CMEs?
+One CME occured on September 6th 2016 (674 km/s) and the other occured on September 14th 2016 (722 km/s). We can see that both the CMEs had speeds that were pretty close but the September 14th CME 2 did have a larger speed. This raises additional questions for researchers, such as whether CME speed is related to the conditions on the Sun at the time of eruption. Because CMEs come from large bursts from the Suns outer atmosphere.
+
+```{python}
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(8,5))
+
+speeds = Coronal_df['speed']
+
+sns.barplot(x=['CME 1', 'CME 2'], y=speeds, palette =['yellow', 'orange'], hue = speeds)
+
+plt.title('CME Speeds')
+plt.xlabel('CME')
+plt.ylabel('Speed (km/s)')
+plt.show()
+```
+
+### How does speed and half angle play a role within these CMEs?
+CME 2 has a larger speed and half angle meaning that there is a higher chance of it being geoeffective. In other words CME 2 has a higher likelihood of actualy impacting Earth. While CME 1 has a much smaller speed and half angle, meaning it's more narrow and focused. So it could miss Earth entirely even if it's aimed roughly in Earths direction.
+
+```{python}
+cme1 = Coronal_df[Coronal_df['speed'] == 674]
+cme2 = Coronal_df[Coronal_df['speed'] == 722]
+
+plt.figure(figsize=(8,5))
+plt.scatter(cme1['halfAngle'], cme1['speed'], color='orange', label='CME 1')
+plt.scatter(cme2['halfAngle'], cme2['speed'], color='red', label='CME 2')
+
+plt.title('Speed vs Half Angle')
+plt.xlabel('Half Angle (degrees)')
+plt.ylabel('Speed (km/s)')
+plt.legend()
+plt.show()
+```
+
+### What is the intensity of each CME?
+To calculate intensity I decided to use speed and half angle together. Because these two features are the ones that work together to produce the most intense CMEs. 
+
+More specifically, I used loc to grab only the speed and half angle that are combined earlier in the code as intensity. Since these CMEs are pretty similar in intensity I decided to use annot=True to display the number on top to differenciate them more easily. 
+
+Since both CMEs are displaying almost the exact same orange color it means they both are near the middle of the intensity scale. They are not super weak or the super strong CMEs, however, they are notable CMEs still.
+
+```{python}
 import matplotlib.pyplot as plt
 import seaborn as sns
-import numpy as np
-```
 
-## Loading in data
-```{python}
-data = pd.read_csv("~/Downloads/dataset_2191_sleep.csv.xls")
-```
+Coronal_df['intensity'] = Coronal_df['speed'] * Coronal_df['halfAngle']
 
-## Looking into the data
-```{python}
-data.head()
-data.tail()
-```
+sns.heatmap([[Coronal_df.loc[0, 'intensity']]], annot=True, cmap='hot')
+plt.title("CME 1 Intensity")
+plt.show()
 
-```{python}
-data.dtypes
-```
-
-```{python}
-data.describe(include= 'all')
-```
-
-## Cleaning the data
-```{python}
-data.replace(['?'], np.nan, inplace=True)
-```
-
-```{python}
-data.isnull().sum()
-```
-
-```{python}
-cols_fixed = ['max_life_span', 'gestation_time', 'total_sleep']
-
-for col in cols_fixed:
-    data[col] = pd.to_numeric(data[col], errors='coerce')
-```
-
-
-```{python}
-data = data.dropna(subset=cols_fixed)
-```
-
-```{python}
-data.dtypes
-```
-
-I wrote this code to prepare the data to best answer the 3 questions I had below. To start I replaced any values that were inconsistent to display NaN. I also converted non-numeric values to numeric to be able to work with the data to create visualizations. 
-
-## Question 1
-# How spread out is the total hours of sleep for mammals?
-
-```{python}
-plt.figure(figsize=(8,5))
-plt.hist(data["total_sleep"].dropna(), bins=10, color = 'green')
-
-plt.title("Histogram of Total Sleep")
-plt.xlabel("Total Sleep (hours)")
-plt.ylabel("Frequency")
+sns.heatmap([[Coronal_df.loc[1, 'intensity']]], annot=True, cmap='hot')
+plt.title("CME 2 Intensity")
 plt.show()
 ```
-
-This code was used to see the distribution of total number of hours of sleep ranging from 2.5 to 20. With most total hours of sleep falling into the 7-13 hour range. If a mammal is to not be apart of the 7-13 hour range they are more likely to sleep less hours than more. 
-
-## Question 2
-# What features correlate with one another the least?
-
-```{python}
-corr = data.corr()
-plt.figure(figsize=(12, 10))
-sns.heatmap(corr, annot=True, fmt=".2f", cmap="copper", square=True)
-plt.title("Correlation Matrix")
-plt.show()
-```
-
-This code was produced to see how all of the features work alongside one another. The bright red shows the features positively interacting with one another which is why it is a positive 1.00. The bright blue shows the negative interaction between the features. The features that correlate with one another the least is sleep_exposure_index and total_sleep. Meaning that it matters the least about how exposed the animal is to the outside elements and the total hours of sleep they get. 
-
-## Question 3
-# How does total sleep relate to life span?
-```{python}
-plt.figure(figsize=(8, 6))
-plt.scatter(data['total_sleep'], data['max_life_span'], color = 'green')
-
-x = data['total_sleep']
-y = data['max_life_span']
-
-m, b = np.polyfit(x, y, 1)
-
-x_sorted = np.sort(x)
-y_pred = m * x_sorted + b
-
-plt.plot(x_sorted, y_pred, color='black', linewidth=2)
-
-plt.title("Total Sleep vs. Maximum Life Span")
-plt.xlabel("Total Sleep (hours)")
-plt.ylabel("Max Life Span (years)")
-
-plt.grid(True, alpha=0.3)
-plt.show()
-```
-
-This code was written to compare total sleep vs maximum life span to take a deeper look into how they correlate. From this scatter plot we can see that more sleep does not mean that the mammals will have a longer life span. 
-
-
